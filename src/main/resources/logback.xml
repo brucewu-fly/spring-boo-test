@@ -1,0 +1,33 @@
+<configuration>
+    <!--为了防止进程退出时，内存中的数据丢失，请加上此选项-->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="aliyun" class="com.aliyun.openservices.log.logback.LoghubAppender">
+        <!--必选项-->
+        <!-- 账号及网络配置 -->
+        <endpoint>https://cn-beijing.log.aliyuncs.com</endpoint>
+        <accessKeyId></accessKeyId>
+        <accessKey></accessKey>
+
+        <!-- sls 项目配置 -->
+        <projectName></projectName>
+        <logstore></logstore>
+        <!--必选项 (end)-->
+
+        <encoder>
+            <pattern>%d %-5level [%thread] %logger: %msg %X{mdc_k1} %X{mdc_k2}</pattern>
+        </encoder>
+
+        <!-- 可选项 设置时间格式 -->
+        <timeFormat>MM-dd-yyyy'T'HH:mmZ</timeFormat>
+        <timeZone>Asia/Shanghai</timeZone>
+
+    </appender>
+
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="aliyun"/>
+    </root>
+</configuration>
